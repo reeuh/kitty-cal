@@ -1,0 +1,340 @@
+.calc-wrap {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: clamp(24px, 6vw, 48px) clamp(16px, 4vw, 28px);
+  box-sizing: border-box;
+  overflow: visible;
+}
+
+/* Stage holds calculator + peeking sticker cats */
+.calc-stage {
+  position: relative;
+  width: min(100%, 368px);
+  max-width: 100%;
+}
+
+.calc {
+  --calc-radius-card: 30px;
+  --calc-radius-btn: 22px;
+  --calc-gap: 12px;
+  --calc-pad: 24px;
+  --calc-card-bg: #fffaf6;
+  --calc-card-border: rgba(130, 95, 140, 0.14);
+  --calc-card-shadow:
+    0 26px 50px rgba(105, 85, 125, 0.14),
+    0 10px 22px rgba(105, 85, 125, 0.07),
+    inset 0 1px 0 rgba(255, 255, 255, 0.85);
+  --calc-screen-bg: linear-gradient(
+    145deg,
+    rgba(255, 255, 255, 0.92) 0%,
+    rgba(252, 246, 255, 0.75) 100%
+  );
+  --calc-text: #453a52;
+  --calc-text-muted: rgba(69, 58, 82, 0.48);
+  --calc-num-bg: #f5eef8;
+  --calc-num-hover: #efe6f4;
+  --calc-num-bg-active: #e8dff0;
+  --calc-fn-bg: #ebe3f0;
+  --calc-fn-hover: #e4dae9;
+  --calc-fn-bg-active: #dbd0e3;
+  --calc-op-bg: #e5daf5;
+  --calc-op-hover: #ddd0ef;
+  --calc-op-bg-active: #d2c4e8;
+  --calc-eq-bg: #f2ada4;
+  --calc-eq-hover: #eea094;
+  --calc-eq-bg-active: #e89287;
+  --calc-eq-text: #4f3238;
+  --calc-focus: rgba(139, 106, 181, 0.55);
+
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  padding: var(--calc-pad);
+  padding-top: 18px;
+  border-radius: var(--calc-radius-card);
+  background:
+    radial-gradient(120% 65% at 15% -10%, rgba(255, 255, 255, 0.95) 0%, transparent 52%),
+    radial-gradient(90% 50% at 100% 100%, rgba(255, 228, 236, 0.35) 0%, transparent 55%),
+    var(--calc-card-bg);
+  border: 1px solid var(--calc-card-border);
+  box-shadow: var(--calc-card-shadow);
+  box-sizing: border-box;
+}
+
+.calc__header {
+  text-align: center;
+  margin: 0 0 14px;
+  padding: 0 4px;
+}
+
+.calc__title {
+  margin: 0;
+  font-size: 1.14rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  color: var(--calc-text);
+  line-height: 1.2;
+}
+
+.calc__tagline {
+  margin: 6px 0 0;
+  font-size: 0.78rem;
+  font-weight: 650;
+  color: var(--calc-text-muted);
+  letter-spacing: 0.04em;
+}
+
+.calc__screen {
+  background: var(--calc-screen-bg);
+  border-radius: calc(var(--calc-radius-card) - 10px);
+  padding: 14px 18px 16px;
+  margin-bottom: var(--calc-gap);
+  border: 1px solid rgba(130, 95, 140, 0.09);
+  box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.65);
+}
+
+.calc__expr {
+  min-height: 1.25em;
+  font-size: 0.92rem;
+  font-weight: 650;
+  color: var(--calc-text-muted);
+  text-align: right;
+  letter-spacing: 0.03em;
+}
+
+.calc__display {
+  display: block;
+  font-size: clamp(1.75rem, 8vw, 2.4rem);
+  font-weight: 800;
+  color: var(--calc-text);
+  text-align: right;
+  font-variant-numeric: tabular-nums lining-nums;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.calc__keys {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--calc-gap);
+}
+
+.calc__btn {
+  appearance: none;
+  margin: 0;
+  border: none;
+  border-radius: var(--calc-radius-btn);
+  font: inherit;
+  font-size: 1.22rem;
+  font-weight: 750;
+  padding: 0;
+  min-height: 56px;
+  cursor: pointer;
+  box-shadow: 0 2px 0 rgba(80, 60, 100, 0.06);
+  transition:
+    transform 95ms ease,
+    background-color 95ms ease,
+    box-shadow 95ms ease;
+  color: var(--calc-text);
+}
+
+.calc__btn:hover:not(:active) {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(90, 70, 110, 0.12);
+}
+
+.calc__btn:active {
+  transform: scale(0.97);
+  box-shadow: 0 1px 0 rgba(80, 60, 100, 0.06);
+}
+
+.calc__btn:focus {
+  outline: none;
+}
+
+.calc__btn:focus-visible {
+  outline: 2px solid var(--calc-focus);
+  outline-offset: 3px;
+}
+
+.calc__btn--num {
+  background: var(--calc-num-bg);
+}
+
+.calc__btn--num:hover:not(:active) {
+  background: var(--calc-num-hover);
+}
+
+.calc__btn--num:active {
+  background: var(--calc-num-bg-active);
+}
+
+.calc__btn--fn {
+  background: var(--calc-fn-bg);
+  font-weight: 700;
+}
+
+.calc__btn--fn:hover:not(:active) {
+  background: var(--calc-fn-hover);
+}
+
+.calc__btn--fn:active {
+  background: var(--calc-fn-bg-active);
+}
+
+.calc__btn--op {
+  background: var(--calc-op-bg);
+}
+
+.calc__btn--op:hover:not(:active) {
+  background: var(--calc-op-hover);
+}
+
+.calc__btn--op:active {
+  background: var(--calc-op-bg-active);
+}
+
+.calc__btn--eq {
+  background: var(--calc-eq-bg);
+  color: var(--calc-eq-text);
+}
+
+.calc__btn--eq:hover:not(:active) {
+  background: var(--calc-eq-hover);
+}
+
+.calc__btn--eq:active {
+  background: var(--calc-eq-bg-active);
+}
+
+.calc__btn--wide {
+  grid-column: span 2;
+}
+
+/* —— Cat stickers (decorative) —— */
+.sticker {
+  position: absolute;
+  pointer-events: none;
+  user-select: none;
+  z-index: 2;
+  filter: drop-shadow(0 6px 12px rgba(95, 75, 115, 0.14));
+}
+
+.sticker svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.sticker--peek {
+  width: clamp(56px, 18vw, 76px);
+  top: -6px;
+  left: clamp(-52px, -14vw, -36px);
+  transform: rotate(-14deg);
+  --sticker-wiggle-from: -14deg;
+  --sticker-wiggle-to: -10deg;
+  animation: sticker-wiggle 5s ease-in-out infinite;
+}
+
+.sticker--tiny {
+  width: clamp(44px, 13vw, 58px);
+  top: clamp(-18px, -4vw, -12px);
+  right: clamp(-28px, -8vw, -14px);
+  --sticker-rot: 11deg;
+  animation: sticker-float 4.5s ease-in-out infinite;
+}
+
+.sticker--sleep {
+  width: clamp(72px, 22vw, 96px);
+  bottom: clamp(-8px, -2vw, -4px);
+  right: clamp(-56px, -14vw, -36px);
+  --sticker-rot: 6deg;
+  animation: sticker-float 6s ease-in-out infinite reverse;
+}
+
+.sticker--paws {
+  width: clamp(64px, 18vw, 82px);
+  bottom: clamp(52px, 14vw, 72px);
+  left: clamp(-46px, -11vw, -28px);
+  --sticker-rot: -8deg;
+  opacity: 0.92;
+  animation: sticker-float 7s ease-in-out 0.5s infinite;
+}
+
+@keyframes sticker-float {
+  0%,
+  100% {
+    transform: translateY(0) rotate(var(--sticker-rot, 0deg));
+  }
+  50% {
+    transform: translateY(-5px) rotate(var(--sticker-rot, 0deg));
+  }
+}
+
+@keyframes sticker-wiggle {
+  0%,
+  100% {
+    transform: rotate(var(--sticker-wiggle-from, -14deg));
+  }
+  50% {
+    transform: rotate(var(--sticker-wiggle-to, -10deg)) translateY(3px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sticker--peek,
+  .sticker--tiny,
+  .sticker--sleep,
+  .sticker--paws {
+    animation: none;
+  }
+
+  .sticker--peek {
+    transform: rotate(-14deg);
+  }
+
+  .sticker--tiny {
+    transform: rotate(11deg);
+  }
+
+  .sticker--sleep {
+    transform: rotate(6deg);
+  }
+
+  .sticker--paws {
+    transform: rotate(-8deg);
+  }
+
+  .calc__btn:hover:not(:active) {
+    transform: none;
+  }
+}
+
+/* Narrow phones: tuck stickers inward so nothing clips awkwardly */
+@media (max-width: 380px) {
+  .sticker--peek {
+    left: -28px;
+    width: 50px;
+  }
+
+  .sticker--tiny {
+    right: -18px;
+    width: 40px;
+  }
+
+  .sticker--sleep {
+    right: -36px;
+    width: 68px;
+  }
+
+  .sticker--paws {
+    left: -22px;
+    bottom: 48px;
+    width: 56px;
+  }
+}
