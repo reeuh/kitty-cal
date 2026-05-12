@@ -286,8 +286,20 @@ export default function App() {
         <CalcStickers />
         <div className="calc" aria-label="Calculator">
           <header className="calc__header">
-            <h1 className="calc__title">Kitty Calculator</h1>
-            <p className="calc__tagline">Soft buttons, sharp math</p>
+            <div className="calc__brand">
+              <img
+                className="calc__logo"
+                src="/favicon.svg"
+                alt=""
+                width={40}
+                height={40}
+                decoding="async"
+              />
+              <div className="calc__brand-text">
+                <h1 className="calc__title">Kitty Calculator</h1>
+                <p className="calc__tagline">Soft buttons, sharp math</p>
+              </div>
+            </div>
           </header>
           <div className="calc__screen">
             <div className="calc__expr" aria-hidden={!expr}>
